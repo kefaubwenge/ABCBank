@@ -1,0 +1,125 @@
+#include <iostream>
+
+// Global variables
+int AccountNumber = 12345;
+int AccountPIN = 54321;
+double AccountBalance = 1000.0;
+
+// Function Prototypes
+bool authenticateUser();
+int showMenu();
+void viewBalance();
+void withdrawCash();
+void depositCash();
+
+int main()
+{
+    // Welcome message
+    std::cout << "Welcome to ABC Bank" << std::endl;
+    std::cout << "___________________" << std::endl;
+
+    // Main Menu Loop
+    while (true)
+    {
+        // Menu option handling
+        int choice = showMenu();
+
+        switch (choice)
+        {
+        case 1:
+            viewBalance();
+            break;
+        case 2:
+            withdrawCash();
+            break;
+        case 3:
+            depositCash();
+            break;
+        case 4:
+            std::cout << "Exiting program. Thank you!" << std::endl;
+            return 0;
+        default:
+            std::cout << "Invalid selection, please try again!" << std::endl;
+        }
+    }
+
+    return 0;
+}
+
+// Function to authenticate the user
+bool authenticateUser()
+{
+    int enteredAccountNumber, enteredPIN;
+
+    std::cout << "Please enter your account number:";
+    std::cin >> enteredAccountNumber;
+
+    std::cout << "Please enter your PIN:";
+    std::cin >> enteredPIN;
+
+    if (enteredAccountNumber == AccountNumber && enteredPIN == AccountPIN)
+    {
+        return true; // Authentication successful
+    }
+    else
+    {
+        std::cout << "Incorrect account number or PIN. Authentication failed." << std::endl;
+        return false; // Authentication failed
+    }
+}
+
+// Function to display the main menu and get user choice
+int showMenu()
+{
+    int choice;
+
+    std::cout << "\nWelcome to ABC Bank\nMain menu\n______________\n";
+    std::cout << "1-View my balance\n2-Withdraw cash\n3-Deposit cash\n4- Exit\n";
+    std::cout << "Enter your choice:";
+    std::cin >> choice;
+
+    return choice;
+}
+
+// Function to display account balance
+void viewBalance()
+{
+    std::cout << "Your current balance is: $" << AccountBalance << std::endl;
+}
+
+// Function to handle cash withdrawal
+void withdrawCash()
+{
+    double withdrawalAmount;
+    std::cout << "Enter the amount to withdraw: $";
+    std::cin >> withdrawalAmount;
+
+    if (withdrawalAmount > 0 && withdrawalAmount <= AccountBalance)
+    {
+        AccountBalance -= withdrawalAmount;
+        std::cout << "Withdrawal successful. Remaining balance:$" << AccountBalance << std::endl;
+    }
+    else
+    {
+        std::cout << "Insufficient funds. Withdrawal failed." << std::endl;
+    }
+}
+
+// Function to handle cash deposit
+void depositCash()
+{
+    double depositAmount;
+
+    std::cout << "Enter the amount to deposit: $";
+    std::cin >> depositAmount;
+
+    if (depositAmount > 0)
+    {
+        AccountBalance += depositAmount;
+        std::cout << "Deposit successful. New Balance: $" << AccountBalance << std::endl;
+    }
+    else
+    {
+        std::cout << "Invalid deposit amount. Deposit failed." << std::endl;
+    }
+}
